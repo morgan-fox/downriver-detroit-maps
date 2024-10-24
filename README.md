@@ -1,1 +1,1 @@
-# downriver-detroit-maps
+# Downriver Detroit Maps
