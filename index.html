@@ -1,2 +1,52 @@
-<a href="Downriver Cities Map.html">View the Downriver Cities Map</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downriver Cities Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
 
+<h3>Downriver Cities Map</h3>
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script>
+    // Initialize the map centered on Van Buren Charter Township
+    var map = L.map('map').setView([42.221622, -83.485153], 9);
+
+    // Add CartoDB Positron tile layer
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+    }).addTo(map);
+
+    // Array of city data
+    var cities = [
+        {name: "River Rouge", coords: [42.2731, -83.1349]},
+        {name: "Wyandotte", coords: [42.2142, -83.1499]},
+        {name: "Gibraltar", coords: [42.0953, -83.1919]},
+        {name: "Monroe", coords: [41.9164, -83.3977]}
+    ];
+
+    // Loop through each city and add a circle marker
+    cities.forEach(function(city) {
+        L.circleMarker(city.coords, {
+            radius: 8,
+            color: 'black',
+            fillColor: 'black',
+            fillOpacity: 1
+        })
+        .bindPopup("<b>" + city.name + "</b>")
+        .addTo(map);
+    });
+</script>
+
+</body>
+</html>
