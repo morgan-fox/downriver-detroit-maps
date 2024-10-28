@@ -50,3 +50,51 @@
 
 </body>
 </html>
+
+Map 2
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detroit Area Waterways</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #map { height: 600px; }
+    </style>
+</head>
+<body>
+
+<h3>Map of Waterways in Detroit</h3>
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script>
+    // Initialize the map and set view to Detroit's coordinates
+    var map = L.map('map').setView([42.3314, -83.0458], 10);
+
+    // Add OpenStreetMap tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Add markers for each waterway
+    var waterways = [
+        {name: "Ecorse River", coords: [42.244, -83.195]},
+        {name: "Rouge River", coords: [42.293, -83.208]},
+        {name: "Huron River", coords: [42.222, -83.783]},
+        {name: "River Raisin", coords: [41.914, -83.397]},
+        {name: "Detroit River", coords: [42.328, -83.039]}
+    ];
+
+    waterways.forEach(function(waterway) {
+        L.marker(waterway.coords).addTo(map)
+            .bindPopup(waterway.name)
+            .openPopup();
+    });
+</script>
+
+</body>
+</html>
