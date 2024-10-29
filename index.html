@@ -10,12 +10,43 @@
             height: 400px;
             width: 70%;
         }
+        /* Star shape and city label styling */
+        .city-marker {
+            display: flex;
+            align-items: center;
+        }
+        .star-icon {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 15px solid white;
+            position: relative;
+            margin-right: 5px;
+        }
+        .star-icon:before,
+        .star-icon:after {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 15px solid white;
+            transform: rotate(72deg);
+        }
+        .star-icon:after {
+            transform: rotate(-72deg);
+        }
         .city-label {
+            font-size: 14px;
+            color: black;
             background-color: white;
-            border: 1px solid black;
+            padding: 2px 4px;
             border-radius: 3px;
-            padding: 2px 6px;
-            font-size: 12px;
+            border: 1px solid black;
         }
     </style>
 </head>
@@ -42,12 +73,12 @@
         {name: "Monroe", coords: [41.9164, -83.3977]}
     ];
 
-    // Loop through cities and add name labels as markers
+    // Loop through cities and add star markers with city names
     cities.forEach(function(city) {
         L.marker(city.coords, {
             icon: L.divIcon({
-                className: 'city-label',
-                html: `<b>${city.name}</b>`
+                className: 'city-marker',
+                html: `<div class="star-icon"></div><div class="city-label"><b>${city.name}</b></div>`
             })
         }).addTo(map);
     });
@@ -55,6 +86,3 @@
 
 </body>
 </html>
-
-
-
