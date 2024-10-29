@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <style>
         #map {
-            height: 600px;
-            width: 100%;
+            height: 400px; /* Adjusted height for a smaller map display */
+            width: 70%;
         }
     </style>
 </head>
