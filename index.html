@@ -42,9 +42,9 @@
         {name: "Monroe", coords: [41.9164, -83.3977]}
     ];
 
-    // Loop through cities and add a small marker and the city name label
+    // Loop through cities and add a small marker and offset city name label
     cities.forEach(function(city) {
-        // Add a small circle marker next to each city
+        // Add a small circle marker for each city
         L.circleMarker(city.coords, {
             radius: 4,  // Small radius for the marker
             color: 'black',
@@ -52,8 +52,11 @@
             fillOpacity: 0.8
         }).addTo(map);
 
-        // Add the city name label
-        L.marker(city.coords, {
+        // Offset coordinates slightly for the label (shift east by a small amount)
+        let labelCoords = [city.coords[0], city.coords[1] + 0.01];
+
+        // Add the city name label with slight offset
+        L.marker(labelCoords, {
             icon: L.divIcon({
                 className: 'city-label',
                 html: `<b>${city.name}</b>`
