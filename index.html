@@ -56,45 +56,58 @@ Map 2
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Detroit Area Waterways</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <title>Detroit Rivers Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
-        #map { height: 600px; }
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
 <body>
+    <div id="map"></div>
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([42.3314, -83.0458], 10);
 
-<h3>Map of Waterways in Detroit</h3>
-<div id="map"></div>
+        // Add grayscale tiles
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
 
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-<script>
-    // Initialize the map and set view to Detroit's coordinates
-    var map = L.map('map').setView([42.3314, -83.0458], 10);
+        // Markers for rivers
+        var rivers = [
+            {name: "Ecorse River", coords: [42.2559, -83.2100]},
+            {name: "Rouge River", coords: [42.3086, -83.1288]},
+            {name: "Huron River", coords: [42.2100, -83.7113]},
+            {name: "River Raisin", coords: [41.8919, -83.3367]},  // Custom coordinate for River Raisin
+            {name: "Detroit River", coords: [42.3295, -83.0458]}
+        ];
 
-    // Add OpenStreetMap tile layer
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
-    // Add markers for each waterway
-    var waterways = [
-        {name: "Ecorse River", coords: [42.244, -83.195]},
-        {name: "Rouge River", coords: [42.293, -83.208]},
-        {name: "Huron River", coords: [42.222, -83.783]},
-        {name: "River Raisin", coords: [41.914, -83.397]},
-        {name: "Detroit River", coords: [42.328, -83.039]}
-    ];
-
-    waterways.forEach(function(waterway) {
-        L.marker(waterway.coords).addTo(map)
-            .bindPopup(waterway.name)
-            .openPopup();
-    });
-</script>
-
+        // Add markers for each river
+        rivers.forEach(function(river) {
+            L.marker(river.coords, {
+                icon: L.icon({
+                    iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41]
+                })
+            })
+            .addTo(map)
+            .bindPopup("Start of " + river.name);
+        });
+    </script>
 </body>
 </html>
